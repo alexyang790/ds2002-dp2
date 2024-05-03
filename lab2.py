@@ -11,7 +11,7 @@ client = MongoClient(uri, username='nmagee', password=MONGOPASS, connectTimeoutM
 #specifying database
 db = client.zy7ts
 collection = db.dataproject2
-
+t = 0
 directory = 'data'
 
 #looping through files
@@ -26,10 +26,14 @@ for filename in os.listdir(directory):
     if isinstance(file_data, list):
       try:
         collection.insert_many(file_data)
+        t = t+1
+        print(t)
       except Exception as e:
         print('!!insert error!!', e, "error when importing into Mongo", '\n')
     else:
       try:
         collection.insert_one(file_data)
+        t = t+1
+        print(t)
       except Exception as e:
         print('!!insert error!!', e, '\n')
